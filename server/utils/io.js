@@ -6,7 +6,10 @@ module.exports = function (io) {
   io.on('connection', async (socket) => {
     console.log('client is connected', socket.id);
 
-    socket.on('login', (userName) => {});
+    // login으로 왔을 때 이 함수 실행됨
+    socket.on('login', (userName, cb) => {
+      console.log('backend', userName);
+    });
 
     socket.on('disconnect', () => {
       console.log('user is disconnected');

@@ -1,3 +1,5 @@
+const userController = require('../controllers/user.controller');
+
 module.exports = function (io) {
   // 말하는 함수 .emit()
   // 듣는 함수 .on()
@@ -7,8 +9,16 @@ module.exports = function (io) {
     console.log('client is connected', socket.id);
 
     // login으로 왔을 때 이 함수 실행됨
-    socket.on('login', (userName, cb) => {
-      console.log('backend', userName);
+    socket.on('login', async (userName, cb) => {
+      // 유저 정보를 저장
+      try {
+        const user = await userController.saveUser(userName, socket.io);
+        console.log(user);
+        cb({ ok: true, data: user });
+      } catch (error) {
+        console.log(error);
+        cb({ ok: false, error: error.message });
+      }
     });
 
     socket.on('disconnect', () => {

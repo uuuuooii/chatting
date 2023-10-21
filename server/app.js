@@ -11,6 +11,11 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log('connected to database'));
+  .then(() => {
+    console.log('Connected to database');
+  })
+  .catch((error) => {
+    console.error('Database connection error:', error);
+  });
 
 module.exports = app;

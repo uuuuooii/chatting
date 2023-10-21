@@ -4,7 +4,7 @@ const userController = {};
 userController.saveUser = async (userName, sid) => {
   // 이미 있는 유저인지 확인
   // MongooseError: Operation `users.findOne()` buffering timed out after 10000ms
-  let user = await User.findOne({ name: userName });
+  let user = await User.find({ name: userName });
   // 없다면 새로 유저정보 만들기
   if (!user) {
     user = new User({
